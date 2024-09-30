@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flask GPT-3 App</title>
+</head>
+<body>
+    <h1>Welcome to the Flask App</h1>
+    <p>Copy a question and get an answer automatically:</p>
+
+    <h3>Answer:</h3>
+    <p id="answer">Your answer will appear here.</p>
+
+    <script>
+        // Function to fetch the latest answer from the server
+        async function fetchAnswer() {
+            const response = await fetch('/get_answer', {
+                method: 'GET'
+            });
+            const data = await response.json();
+            document.getElementById('answer').textContent = data.answer || "No answer yet.";
+        }
+
+        // Poll the server every 3 seconds to update the answer
+        setInterval(fetchAnswer, 3000);  // Poll every 3 seconds
+    </script>
+</body>
+</html>
